@@ -27,4 +27,15 @@ class CardDeckServiceTest extends TestCase
         $this->assertFalse('2H' === $cardDeck[13]);
     }
 
+    public function test_adding()
+    {
+        $this->assertEquals(2, 1 + 1);
+    }
+
+    public function testTrueAssetsToTrue()
+    {
+        $condition = true;
+        $this->assertTrue($condition);
+    }
+
 }
