@@ -68,7 +68,7 @@ class CandidatesTest extends TestCase
     public function testUpdate()
     {
         $req = $this->createRequest('PUT', '/candidates/' . self::$id);
-        $request = $req->withParsedBody(['first_name' => 'Emma']);
+        $request = $req->withParsedBody(['first_name' => 'Emma', 'last_name' => 'Noop']);
         $response = $this->getAppInstance()->handle($request);
 
         $result = (string)$response->getBody();
@@ -76,19 +76,10 @@ class CandidatesTest extends TestCase
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertStringContainsString('id', $result);
         $this->assertStringNotContainsString('Henri', $result);
+        $this->assertStringNotContainsString('Jeret', $result);
         $this->assertStringContainsString('Emma', $result);
+        $this->assertStringContainsString('Noop', $result);
         $this->assertStringNotContainsString('error', $result);
-
-        $request_1 = $req->withParsedBody(['last_name' => 'Noop']);
-        $response_1 = $this->getAppInstance()->handle($request_1);
-
-        $result_1 = (string)$response_1->getBody();
-
-        $this->assertEquals(200, $response_1->getStatusCode());
-        $this->assertStringContainsString('id', $result_1);
-        $this->assertStringNotContainsString('Jeret', $result_1);
-        $this->assertStringContainsString('Noop', $result_1);
-        $this->assertStringNotContainsString('error', $result_1);
 
     }
 
